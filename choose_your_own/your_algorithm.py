@@ -28,14 +28,28 @@ plt.show()
 ################################################################################
 
 
-### your code here!  name your classifier object clf if you want the 
+### your code here!  name your classifier object clf if you want the
 ### visualization code (prettyPicture) to show you the decision boundary
 
+from time import time
+from sklearn.ensemble import AdaBoostClassifier
+from sklearn.metrics import accuracy_score
 
+ests = [2, 5, 10, 25, 50, 100, 1000, 10000]
+for est in ests:
+    print "# estimators:", est
+    clf = AdaBoostClassifier(n_estimators=est)
 
+    t0 = time()
+    clf.fit(features_train, labels_train)
+    print "training time:", round(time()-t0, 3), "s"
 
+    t1 = time()
+    pred = clf.predict(features_test)
+    print "prediction time:", round(time()-t1, 3), "s"
 
-
+    accuracy = accuracy_score(labels_test, pred)
+    print "accuracy:", accuracy
 
 
 try:
